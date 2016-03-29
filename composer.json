@@ -1,0 +1,14 @@
+{
+    "name": "dframe/mymail",
+    "description": "Modul mailowy do frameworka dframe",
+    "type": "library",
+    "require": {
+        "phpmailer/phpmailer": "^5.2"
+    },
+    "authors": [
+        {
+            "name": "Slawek Kaleta",
+            "email": "kajtek2008@o2.pl"
+        }
+    ]
+}
