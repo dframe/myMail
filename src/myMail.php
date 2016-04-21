@@ -16,6 +16,7 @@ class myMail
 		
 
         $this->mailObject = new \PHPMailer;
+        $this->mailObject->CharSet = 'UTF-8';
         $this->mailObject->isSMTP();      
 		$this->mailObject->Host = implode(';', $this->config['Hosts']);
 		$this->mailObject->SMTPAuth = $this->config['SMTPAuth'];
