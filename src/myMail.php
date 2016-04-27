@@ -1,6 +1,8 @@
 <?php
 namespace Dframe\myMail;
 use \PHPMailer\PHPMailer;
+use \Dframe\Config;
+
 
 /**
 * Biblioteka obslugi maili dla Dframe
@@ -11,10 +13,9 @@ class myMail
 	public $addAttachment = array();
 	protected $config;
 
-	public function __construct(array $config){
-		$this->config = $config;
+	public function __construct(){
+		$this->config = Config::load('myMail');
 		
-
         $this->mailObject = new \PHPMailer;
         $this->mailObject->CharSet = 'UTF-8';
         $this->mailObject->isSMTP();      
@@ -33,15 +34,11 @@ class myMail
 	}
 
 	public function send($addAddress = array(), $Subject, $Body, $Sender = ''){
-		$addAddress = array(array('mail' => '', 'name' => '')); //BLOKADA PRZYPADKOWEJ WYSYLKI MAILI TESTOWYCH POZA SYSTEM
-		if(!isset($this->counter)){
-			$this->counter = 0;
-		}
 
-		if($this->counter++ > 20){
-			return;
-		}
-		//BLOKADA ANTYSPAMOWA, TYMCZASOWA
+		$this->mailObject->ClearAddresses();  // each AddAddress add to list
+		$this->mailObject->ClearCCs();
+		$this->mailObject->ClearBCCs();
+
 
 		if($Sender != '')
 			$this->mailObject->setFrom($Sender['address'], $Sender['name']);
@@ -49,6 +46,7 @@ class myMail
 			$this->mailObject->setFrom($this->config['senderMail'], $this->config['senderName']);
 		
         
+        $this->mailObject->Subject = $Subject;
         foreach ($addAddress as $key => $Address) {
         	 $this->mailObject->addAddress($Address['mail'], $Address['name']);     // Add a recipient
         }
