@@ -11,11 +11,11 @@ class myMail
 {
 	
 	public $addAttachment = array();
-	protected $config;
+	//protected $config;
 
 	public function __construct(){
-		$this->config = Config::load('myMail');
-		
+		$this->config = Config::load('myMail')->get();
+
         $this->mailObject = new \PHPMailer;
         $this->mailObject->CharSet = 'UTF-8';
         $this->mailObject->isSMTP();      
@@ -23,8 +23,9 @@ class myMail
 		$this->mailObject->SMTPAuth = $this->config['SMTPAuth'];
 		$this->mailObject->Username = $this->config['Username'];
 		$this->mailObject->Password = $this->config['Password'];
-		$this->mailObject->SMTPSecure = $this->config['STMPSecure'];
+		$this->mailObject->SMTPSecure = $this->config['SMTPSecure'];
 		$this->mailObject->Port = $this->config['Port'];
+		return $this->mailObject;
 
 	}
 
@@ -33,7 +34,7 @@ class myMail
 		return $this;
 	}
 
-	public function send($addAddress = array(), $Subject, $Body, $Sender = ''){
+	public function send($Recipient = array(), $Subject, $Body, $Sender = ''){
 
 		$this->mailObject->ClearAddresses();  // each AddAddress add to list
 		$this->mailObject->ClearCCs();
@@ -47,15 +48,12 @@ class myMail
 		
         
         $this->mailObject->Subject = $Subject;
-        foreach ($addAddress as $key => $Address) {
-        	 $this->mailObject->addAddress($Address['mail'], $Address['name']);     // Add a recipient
-        }
+        $this->mailObject->addAddress($Recipient['mail'], $Recipient['name']);     // Add a recipient
 
         if(!empty($this->addAttachment))
         	foreach ($addAttachment as $key => $Attachment) {
         		 $this->mailObject->addAttachment = $Attachment;
         	}
-        	
         $this->mailObject->msgHTML($Body);
 
     	if (!$this->mailObject->send()) {
