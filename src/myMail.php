@@ -13,8 +13,11 @@ class myMail
 	public $addAttachment = array();
 	//protected $config;
 
-	public function __construct(){
-		$this->config = Config::load('myMail')->get();
+	public function __construct($config = null){
+		$this->config = $config;
+		
+		if(is_null($this->config))
+			$this->config = Config::load('myMail')->get();
 
         $this->mailObject = new \PHPMailer;
         $this->mailObject->CharSet = 'UTF-8';
