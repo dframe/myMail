@@ -26,9 +26,9 @@ return array(
 
 ```php
 <?php
-use \Dframe\MyMail;
+use \Dframe\myMail;
 $view = $this->loadView('index');
-$myMail = new \MyMail($config = \Dframe\Core\Config::load('myMail')); // Załadowanie Configu
+$myMail = new myMail($config = \Dframe\Core\Config::load('myMail')); // Załadowanie Configu
 
 /* 
  * If you have problem with ssl in php 5.6 add
@@ -40,9 +40,13 @@ $myMail = new \MyMail($config = \Dframe\Core\Config::load('myMail')); // Załado
  *           )
  *       );
  */
+ 
+ $myMail->SMTPDebug  = 2; // enables SMTP debug information (for testing)
+                        // 1 = errors and messages
+                        // 2 = messages only
+		       
 $addAddress[] = array('mail' => $_POST['email'], 'name' => $userResult['firstname']); // Adresy na jakie ma wysłać
 $view->assign('name', $userResult['firstname']); // Podmiana z templatki wartości
 $body = $view->fetchMail('reset'); // Templatka Maila
 $mail->send($addAddress, 'Test Mail', $body);
-?>
 ````
