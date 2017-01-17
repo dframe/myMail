@@ -45,7 +45,7 @@ $myMail = new myMail($config = \Dframe\Core\Config::load('myMail')); // Załadow
                         // 1 = errors and messages
                         // 2 = messages only
 		       
-$addAddress[] = array('mail' => $_POST['email'], 'name' => $userResult['firstname']); // Adresy na jakie ma wysłać
+$addAddress = array('mail' => $_POST['email'], 'name' => $userResult['firstname']); // Adresy na jakie ma wysłać
 $view->assign('name', $userResult['firstname']); // Podmiana z templatki wartości
 $body = $view->fetchMail('reset'); // Templatka Maila
 $mail->send($addAddress, 'Test Mail', $body);
