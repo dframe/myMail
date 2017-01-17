@@ -51,6 +51,13 @@ class myMail
 		
         
         $this->mailObject->Subject = $Subject;
+
+        $Recipient['mail'] = $Recipient['mail'];
+        if (!filter_var($Recipient['mail'], FILTER_VALIDATE_EMAIL)) {
+		    throw new \Exception("Mailer Error: Invalid email format.");
+		    return false;
+        }
+
         $this->mailObject->addAddress($Recipient['mail'], $Recipient['name']);     // Add a recipient
 
         if(!empty($this->addAttachment))
