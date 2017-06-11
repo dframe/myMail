@@ -26,8 +26,8 @@ return array(
 
 ```php
 <?php
-use \Dframe\myMail;
-use \Dframe\Config;
+use Dframe\myMail\myMail;
+use Dframe\Config;
 $view = $this->loadView('index');
 $myMail = new myMail($config = Config::load('myMail')); // Załadowanie Configu
 
@@ -46,9 +46,9 @@ $myMail = new myMail($config = Config::load('myMail')); // Załadowanie Configu
                         // 1 = errors and messages
                         // 2 = messages only
 		       
-$addAddress = array('mail' => $_POST['email'], 'name' => $userResult['firstname']); // Adresy na jakie ma wysłać
-$view->assign('name', $userResult['firstname']); // Podmiana z templatki wartości
-$body = $view->fetchMail('reset'); // Templatka Maila
+$addAddress = array('mail' => $_POST['email'], 'name' => $_POST['firstname']); // Adresy na jakie ma wysłać
+$view->assign('name', $_POST['firstname']); // Podmiana z templatki wartości
+$body = $view->fetch('reset'); // Templatka Maila
 $mail->send($addAddress, 'Test Mail', $body);
 ````
 
@@ -88,12 +88,12 @@ $mail->mailObject->SMTPOptions = array(
 $mail->mailObject->SMTPSecure = false;
 
 $addAddress = array('mail' => 'adres@email', 'name' => 'titleFrom'); // Adresy na jakie ma wysłać
-s
+
 try {
-	$mail->send($addAddress, 'Test Mail', $body);
+    $mail->send($addAddress, 'Test Mail', $body);
 
 } catch (Exception $e) {
-	echo $e->getMessage();
+    echo $e->getMessage();
 	
 }
 ```
