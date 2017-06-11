@@ -26,9 +26,10 @@ return array(
 
 ```php
 <?php
-use \Dframe\myMail;
+use Dframe\Core;
+use Dframe\myMail\myMail;
 $view = $this->loadView('index');
-$myMail = new myMail($config = \Dframe\Core\Config::load('myMail')); // Załadowanie Configu
+$myMail = new myMail($config = Config::load('myMail')); // Załadowanie Configu
 
 /* 
  * If you have problem with ssl in php 5.6 add
@@ -45,8 +46,45 @@ $myMail = new myMail($config = \Dframe\Core\Config::load('myMail')); // Załadow
                         // 1 = errors and messages
                         // 2 = messages only
 		       
-$addAddress = array('mail' => $_POST['email'], 'name' => $userResult['firstname']); // Adresy na jakie ma wysłać
-$view->assign('name', $userResult['firstname']); // Podmiana z templatki wartości
-$body = $view->fetchMail('reset'); // Templatka Maila
+$addAddress = array('mail' => $_POST['email'], 'name' => $_POST['firstname']); // Adresy na jakie ma wysłać
+$view->assign('name', $_POST['firstname']); // Podmiana z templatki wartości
+$body = $view->fetch('mail/reset'); // Templatka Maila
 $mail->send($addAddress, 'Test Mail', $body);
 ````
+
+
+
+Stalone
+```php
+
+<?php
+use Dframe\myMail\myMail
+
+require_once __DIR__ . '/../vendor/autoload.php';
+$config = require_once 'config/config.php'; 
+
+$mail = new myMail(); // Załadowanie Configu
+$mail->mailObject->isSMTP();
+$mail->mailObject->SMTPOptions = array(
+    'ssl' => array(
+        'verify_peer' => false,
+        'verify_peer_name' => false,
+        'allow_self_signed' => true
+    )
+);
+//$mail->SMTPDebug  = 2; // enables SMTP debug information (for testing)
+                       // 1 = errors and messages
+                       // 2 = messages only
+$mail->mailObject->SMTPSecure = false;
+
+$addAddress = array('mail' => 'adres@email', 'name' => 'titleFrom'); // Adresy na jakie ma wysłać
+s
+try {
+	$mail->send($addAddress, 'Test Mail', $body);
+
+} catch (Exception $e) {
+	echo $e->getMessage();
+	
+}
+
+```

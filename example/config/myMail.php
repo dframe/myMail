@@ -16,4 +16,3 @@ return array(
 	'senderName' => PROJECT_NAME, //Name of default sender
 	'senderMail' => 'senderMail@mail' //Default sender's address
 );
-?>
