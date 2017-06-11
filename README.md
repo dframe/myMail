@@ -26,8 +26,8 @@ return array(
 
 ```php
 <?php
-use Dframe\Core;
-use Dframe\myMail\myMail;
+use \Dframe\myMail;
+use \Dframe\Config;
 $view = $this->loadView('index');
 $myMail = new myMail($config = Config::load('myMail')); // Załadowanie Configu
 
@@ -46,15 +46,25 @@ $myMail = new myMail($config = Config::load('myMail')); // Załadowanie Configu
                         // 1 = errors and messages
                         // 2 = messages only
 		       
-$addAddress = array('mail' => $_POST['email'], 'name' => $_POST['firstname']); // Adresy na jakie ma wysłać
-$view->assign('name', $_POST['firstname']); // Podmiana z templatki wartości
-$body = $view->fetch('mail/reset'); // Templatka Maila
+$addAddress = array('mail' => $_POST['email'], 'name' => $userResult['firstname']); // Adresy na jakie ma wysłać
+$view->assign('name', $userResult['firstname']); // Podmiana z templatki wartości
+$body = $view->fetchMail('reset'); // Templatka Maila
 $mail->send($addAddress, 'Test Mail', $body);
 ````
 
 
+Stalone example#1 php
+```php
+use \Dframe\myMail\MyMail;
+require_once __DIR__ . '/../vendor/autoload.php';
+$config = require_once 'config/config.php'; 
+$myMail = new \MyMail($config); // Załadowanie Configu
+$addAddress = array('mail' => 'adres@email', 'name' => 'titleFrom'); // Adresy na jakie ma wysłać
+$mail->send($addAddress, 'Test Mail', $body);
+````
 
-Stalone
+
+Stalone example#2 php
 ```php
 
 <?php
@@ -86,5 +96,4 @@ try {
 	echo $e->getMessage();
 	
 }
-
 ```
