@@ -1,23 +1,25 @@
 <?php
-namespace Dframe\myMail;
-use \PHPMailer\PHPMailer;
-use \Dframe\Config;
+namespace Dframe\MyMail;
+use PHPMailer\PHPMailer;
+use Dframe\Config;
 
 
 /**
-* Biblioteka obslugi maili dla Dframe
-*/
-class myMail
+ * Biblioteka obslugi maili dla Dframe
+ */
+class MyMail
 {
     
     public $addAttachment = array();
     //protected $config;
 
-    public function __construct($config = null){
+    public function __construct($config = null)
+    {
         $this->config = $config;
         
-        if(is_null($this->config))
+        if (is_null($this->config)) {
             $this->config = Config::load('myMail')->get();
+        }
 
         $this->mailObject = new \PHPMailer;
         $this->mailObject->CharSet = 'UTF-8';
@@ -31,38 +33,42 @@ class myMail
 
     }
 
-    public function addAttachment($addAttachment){
+    public function addAttachment($addAttachment)
+    {
         $this->addAttachment[] = $addAttachment;
         return $this;
     }
 
-    public function send($Recipient = array(), $Subject, $Body, $Sender = ''){
+    public function send($Recipient = array(), $Subject, $Body, $Sender = '')
+    {
 
         $this->mailObject->ClearAddresses();  // each AddAddress add to list
         $this->mailObject->ClearCCs();
         $this->mailObject->ClearBCCs();
 
 
-        if($Sender != '')
+        if ($Sender != '') {
             $this->mailObject->setFrom($Sender['address'], $Sender['name']);
-        else
+        } else {
             $this->mailObject->setFrom($this->config['senderMail'], $this->config['senderName']);
+        }
         
         
         $this->mailObject->Subject = $Subject;
 
         $Recipient['mail'] = $Recipient['mail'];
         if (!filter_var($Recipient['mail'], FILTER_VALIDATE_EMAIL)) {
-		    throw new \Exception("Mailer Error: Invalid email format.");
-		    return false;
+            throw new \Exception("Mailer Error: Invalid email format.");
+            return false;
         }
 
         $this->mailObject->addAddress($Recipient['mail'], $Recipient['name']);     // Add a recipient
 
-        if(!empty($this->addAttachment))
-            foreach ($addAttachment as $key => $Attachment) {
-                 $this->mailObject->addAttachment = $Attachment;
+        if (!empty($this->addAttachment)) {
+            foreach ($addAttachment as $key => $attachment) {
+                 $this->mailObject->addAttachment = $attachment;
             }
+        }
         $this->mailObject->msgHTML($Body);
 
         if (!$this->mailObject->send()) {

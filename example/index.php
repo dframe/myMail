@@ -1,10 +1,10 @@
 <?php
-use Dframe\myMail\myMail
+use Dframe\MyMail\MyMail
 
 require_once __DIR__ . '/../vendor/autoload.php';
-$config = require_once 'config/config.php'; 
+$config = include_once 'config/config.php'; 
 
-$mail = new myMail(); // Załadowanie Configu
+$mail = new MyMail(); // Załadowanie Configu
 $mail->mailObject->isSMTP();
 $mail->mailObject->SMTPOptions = array(
     'ssl' => array(
@@ -21,10 +21,10 @@ $mail->mailObject->SMTPSecure = false;
 $addAddress = array('mail' => 'adres@email', 'name' => 'titleFrom'); // Adresy na jakie ma wysłać
 
 try {
-	$mail->send($addAddress, 'Test Mail', $body);
+    $mail->send($addAddress, 'Test Mail', $body);
 
 } catch (Exception $e) {
-	echo $e->getMessage();
-	
+    echo $e->getMessage();
+    
 }
 
