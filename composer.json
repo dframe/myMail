@@ -13,6 +13,6 @@
         }
     ],
     "autoload": {
-                "psr-4": { "Dframe\\myMail\\": "src/" }
+                "psr-4": { "Dframe\\MyMail\\": "src/" }
     }
 }
