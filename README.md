@@ -1,4 +1,4 @@
-# Dframe/myMail
+# Dframe/MyMail
 
 Moduł mail do frameworka Dframe 
 
@@ -26,10 +26,10 @@ return array(
 
 ```php
 <?php
-use Dframe\myMail\myMail;
+use Dframe\MyMail\MyMail;
 use Dframe\Config;
 $view = $this->loadView('index');
-$myMail = new myMail($config = Config::load('myMail')); // Załadowanie Configu
+$myMail = new MyMail($config = Config::load('myMail')); // Załadowanie Configu
 
 /* 
  * If you have problem with ssl in php 5.6 add
@@ -55,10 +55,10 @@ $mail->send($addAddress, 'Test Mail', $body);
 
 Stalone example#1 php
 ```php
-use \Dframe\myMail\myMail;
+use \Dframe\MyMail\MyMail;
 require_once __DIR__ . '/../vendor/autoload.php';
 $config = require_once 'config/config.php'; 
-$myMail = new myMail($config); // Załadowanie Configu
+$myMail = new MyMail($config); // Załadowanie Configu
 $addAddress = array('mail' => 'adres@email', 'name' => 'titleFrom'); // Adresy na jakie ma wysłać
 $mail->send($addAddress, 'Test Mail', $body);
 ````
@@ -68,12 +68,12 @@ Stalone example#2 php
 ```php
 
 <?php
-use Dframe\myMail\myMail
+use Dframe\MyMail\MyMail
 
 require_once __DIR__ . '/../vendor/autoload.php';
 $config = require_once 'config/config.php'; 
 
-$mail = new myMail(); // Załadowanie Configu
+$mail = new MyMail(); // Załadowanie Configu
 $mail->mailObject->isSMTP();
 $mail->mailObject->SMTPOptions = array(
     'ssl' => array(
