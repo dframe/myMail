@@ -14,5 +14,11 @@
     ],
     "autoload": {
                 "psr-4": { "Dframe\\MyMail\\": "src/" }
+    },
+    "scripts": {
+        "test": [
+            "@phpunit"
+        ],
+        "phpunit": "php vendor/bin/phpunit"
     }
 }

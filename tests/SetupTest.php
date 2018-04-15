@@ -1,6 +1,5 @@
 <?php
 use PHPUnit_Framework_Constraint_IsType as PHPUnit_IsType;
-use \Dframe\Database\WhereStringChunk;
 
 
 // backward compatibility
