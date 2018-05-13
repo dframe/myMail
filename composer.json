@@ -1,6 +1,7 @@
 {
     "name": "dframe/mymail",
     "description": "Modul mailowy do frameworka dframe",
+    "keywords": ["mailings", "mail", "dframe", "email", "newsletter", "notification"],
     "type": "library",
     "license": "MIT",
     "require": {
