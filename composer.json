@@ -2,6 +2,7 @@
     "name": "dframe/mymail",
     "description": "Modul mailowy do frameworka dframe",
     "keywords": ["mailings", "mail", "dframe", "email", "newsletter", "notification"],
+    "homepage": "https://dframeframework.com",
     "type": "library",
     "license": "MIT",
     "require": {
@@ -9,7 +10,7 @@
     },
     "authors": [
         {
-            "name": "Slawek Kaleta",
+            "name": "Sławomir Kaleta",
             "email": "slaszka@gmail.com"
         }
     ],
