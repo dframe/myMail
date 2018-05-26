@@ -2,8 +2,7 @@
 
 [![Build Status](https://travis-ci.org/dframe/myMail.svg?branch=master)](https://travis-ci.org/dframe/myMail) [![Latest Stable Version](https://poser.pugx.org/dframe/myMail/v/stable)](https://packagist.org/packages/dframe/myMail) [![Latest Unstable Version](https://poser.pugx.org/dframe/myMail/v/unstable)](https://packagist.org/packages/dframe/myMail) [![License](https://poser.pugx.org/dframe/myMail/license)](https://packagist.org/packages/dframe/myMail)
 
-
-Moduł mail do frameworka Dframe 
+Simple mail wrapper using phpmailer 
 
 ### Użycie
 #### config/myMail.php
