@@ -57,9 +57,7 @@ class MyMail
 
         $this->mailObject->Subject = $Subject;
 
-        $Recipient['mail'] = $Recipient['mail'];
-        $domain = explode('@', $Recipient['mail']);
-        if (!filter_var($Recipient['mail'], FILTER_VALIDATE_EMAIL) AND $domain[1] != 'localhost') {
+        if (!filter_var($Recipient['mail'], FILTER_VALIDATE_EMAIL)) {
             throw new \Exception("Mailer Error: Invalid email format.");
         }
 
