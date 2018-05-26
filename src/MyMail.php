@@ -58,9 +58,9 @@ class MyMail
         $this->mailObject->Subject = $Subject;
 
         $Recipient['mail'] = $Recipient['mail'];
-        if (!filter_var($Recipient['mail'], FILTER_VALIDATE_EMAIL)) {
+        $domain = explode('@', $Recipient['mail']);
+        if (!filter_var($Recipient['mail'], FILTER_VALIDATE_EMAIL) AND $domain[1] != 'localhost') {
             throw new \Exception("Mailer Error: Invalid email format.");
-            return false;
         }
 
         $this->mailObject->addAddress($Recipient['mail'], $Recipient['name']);     // Add a recipient
@@ -74,7 +74,6 @@ class MyMail
 
         if (!$this->mailObject->send()) {
             throw new \Exception("Mailer Error: " . $this->mailObject->ErrorInfo);
-            return false;
         }
 
         $this->addAttachment = null;

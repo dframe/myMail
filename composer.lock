@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "433492091a10e8f36e808cff3f546b55",
+    "content-hash": "6ffc8e2047d389b4b1b0f99247694f23",
     "packages": [
         {
             "name": "phpmailer/phpmailer",
@@ -84,7 +84,59 @@
             "time": "2017-11-04T09:26:05+00:00"
         }
     ],
-    "packages-dev": [],
+    "packages-dev": [
+        {
+            "name": "dframe/dframe",
+            "version": "v3.27.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dframe/dframe.git",
+                "reference": "e11b833b63d62c20f87a7c9ddef5990de7237001"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dframe/dframe/zipball/e11b833b63d62c20f87a7c9ddef5990de7237001",
+                "reference": "e11b833b63d62c20f87a7c9ddef5990de7237001",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6"
+            },
+            "suggest": {
+                "kriswallsmith/assetic": "^1.4",
+                "natxet/CssMin": "^3.0",
+                "patchwork/jsqueeze": "^2.0",
+                "ptachoire/cssembed": "^1.0",
+                "smarty/smarty": "^3.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Dframe\\": "src"
+                },
+                "files": [
+                    "src/Functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Slawek Kaleta",
+                    "email": "slaszka@gmail.com"
+                }
+            ],
+            "description": "Framework Dframe",
+            "keywords": [
+                "dframe",
+                "framework",
+                "mvc"
+            ],
+            "time": "2018-02-10T15:49:02+00:00"
+        }
+    ],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": [],

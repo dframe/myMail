@@ -17,6 +17,9 @@
     "autoload": {
                 "psr-4": { "Dframe\\MyMail\\": "src/" }
     },
+    "require-dev": {
+        "dframe/dframe": "^3.27"
+    },
     "scripts": {
         "test": [
             "@phpunit"
