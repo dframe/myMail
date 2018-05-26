@@ -15,7 +15,7 @@ class SetupTest extends \PHPUnit\Framework\TestCase
 	public function mail()
 	{
 		$myMail = new MyMail(array(
-			'Hosts' => array('root@localhost'),      // Specify main and backup SMTP servers
+			'Hosts' => array('localhost.localdomain'),      // Specify main and backup SMTP servers
 			'SMTPAuth' => true,                    // Enable SMTP authentication
 			'Username' => 'Username@mail',         // SMTP username
 			'Password' => '',                      // SMTP password
@@ -40,7 +40,7 @@ class SetupTest extends \PHPUnit\Framework\TestCase
 	}
 
 	public function testSend(){
-		$addAddress = array('mail' => 'me@localhost', 'name' => 'titleFrom'); // Addresses to send
+		$addAddress = array('mail' => 'root@localhost.localdomain', 'name' => 'titleFrom'); // Addresses to send
 		$this->assertTrue($this->mail()->send($addAddress, 'Title', 'Body'));
 	}
 }
