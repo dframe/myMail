@@ -1,5 +1,8 @@
 # Dframe/MyMail
 
+[![Build Status](https://travis-ci.org/dframe/mymail.svg?branch=master)](https://travis-ci.org/dframe/mymail) [![Latest Stable Version](https://poser.pugx.org/dframe/mymail/v/stable)](https://packagist.org/packages/dframe/mymail) [![Latest Unstable Version](https://poser.pugx.org/dframe/mymail/v/unstable)](https://packagist.org/packages/dframe/mymail) [![License](https://poser.pugx.org/dframe/mymail/license)](https://packagist.org/packages/dframe/mymail)
+
+
 Moduł mail do frameworka Dframe 
 
 ### Użycie
