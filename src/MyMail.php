@@ -1,5 +1,6 @@
 <?php
 namespace Dframe\MyMail;
+
 use PHPMailer\PHPMailer;
 use Dframe\Config;
 
@@ -9,14 +10,14 @@ use Dframe\Config;
  */
 class MyMail
 {
-    
+
     public $addAttachment = array();
     //protected $config;
 
     public function __construct($config = null)
     {
         $this->config = $config;
-        
+
         if (is_null($this->config)) {
             $this->config = Config::load('myMail')->get();
         }
@@ -52,8 +53,8 @@ class MyMail
         } else {
             $this->mailObject->setFrom($this->config['senderMail'], $this->config['senderName']);
         }
-        
-        
+
+
         $this->mailObject->Subject = $Subject;
 
         $Recipient['mail'] = $Recipient['mail'];
@@ -66,7 +67,7 @@ class MyMail
 
         if (!empty($this->addAttachment)) {
             foreach ($addAttachment as $key => $attachment) {
-                 $this->mailObject->addAttachment = $attachment;
+                $this->mailObject->addAttachment = $attachment;
             }
         }
         $this->mailObject->msgHTML($Body);

@@ -1,12 +1,12 @@
 <?php
+namespace Controller;
+
 /**
  * Project Name
  * Copyright (c) Firstname Lastname
  *
  * @license http://yourLicenceUrl/ (Licence Name)
  */
-
-namespace Controller;
 
 use Dframe\Config;
 use Dframe\Router\Response;

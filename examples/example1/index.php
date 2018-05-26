@@ -1,8 +1,8 @@
 <?php
-use Dframe\MyMail\MyMail
+use Dframe\MyMail\MyMail;
 
 require_once __DIR__ . '/../vendor/autoload.php';
-$config = include_once 'config/config.php'; 
+$config = include_once 'config/config.php';
 
 $mail = new MyMail(); // Załadowanie Configu
 $mail->mailObject->isSMTP();
@@ -25,6 +25,6 @@ try {
 
 } catch (Exception $e) {
     echo $e->getMessage();
-    
+
 }
 

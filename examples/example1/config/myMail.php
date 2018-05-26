@@ -8,7 +8,7 @@ return array(
     'SMTPSecure' => 'tls',                 // Enable TLS encryption, `ssl` also accepted
     'Port' => 587,                         // Port
 
-    'setMailTemplateDir' => APP_DIR.'View/templates/mail',
+    'setMailTemplateDir' => APP_DIR . 'View/templates/mail',
     'smartyHtmlExtension' => '.html.php',              // Default '.html.php'
     'smartyTxtExtension' => '.txt.php',                // Default '.txt.php'
     'fileExtension' => '.html.php',
