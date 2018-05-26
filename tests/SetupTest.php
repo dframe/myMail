@@ -39,7 +39,8 @@ class SetupTest extends \PHPUnit\Framework\TestCase
 		$this->assertInstanceOf(\Dframe\MyMail\MyMail::class, $this->mail());
 	}
 
-	public function testSend(){
+	public function testSend()
+	{
 		$addAddress = array('mail' => 'root@localhost.localdomain', 'name' => 'titleFrom'); // Addresses to send
 		$this->assertTrue($this->mail()->send($addAddress, 'Title', 'Body'));
 	}
@@ -47,20 +48,6 @@ class SetupTest extends \PHPUnit\Framework\TestCase
 	public function testInvalidEmail()
 	{
 		$addAddress = array('mail' => 'NotEmail', 'name' => 'titleFrom'); // Addresses to send
-		$this->assertEquals('Mailer Error: Invalid email format.', $this->mail()->send($addAddress, 'Title', 'Body'));
-
-		$addAddress = array('mail' => '', 'name' => 'titleFrom'); // Addresses to send
-		$this->assertEquals('Mailer Error: Invalid email format.', $this->mail()->send($addAddress, 'Title', 'Body'));
-
-		$addAddress = array('mail' => false, 'name' => 'titleFrom'); // Addresses to send
-		$this->assertEquals('Mailer Error: Invalid email format.', $this->mail()->send($addAddress, 'Title', 'Body'));
-
-		$addAddress = array('mail' => true, 'name' => 'titleFrom'); // Addresses to send
-		$this->assertEquals('Mailer Error: Invalid email format.', $this->mail()->send($addAddress, 'Title', 'Body'));
-
-		$addAddress = array(); // Addresses to send
-		$this->assertEquals('Mailer Error: Invalid email format.', $this->mail()->send($addAddress, 'Title', 'Body'));
-
-		
+		$this->expectException($this->mail()->send($addAddress, 'Title', 'Body'));
 	}
 }
