@@ -48,13 +48,13 @@ class SetupTest extends \PHPUnit\Framework\TestCase
 	public function testInvalidEmail()
 	{
 		$addAddress = array('mail' => 'NotEmail', 'name' => 'titleFrom'); // Addresses to send
-		
-		try {
-		    $this->mail()->send($addAddress, 'Title', 'Body');
-		} catch (\Exception $e) {
-                    $this->assertEquals('Mailer Error: Invalid email format.', $e->getMessage())      
-                }         
 
-			
+		try {
+			$this->mail()->send($addAddress, 'Title', 'Body');
+		} catch (\Exception $e) {
+			$this->assertEquals('Mailer Error: Invalid email format.', $e->getMessage())
+		}
+
+
 	}
 }
