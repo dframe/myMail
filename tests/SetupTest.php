@@ -6,7 +6,7 @@ use Dframe\Config;
 
 // backward compatibility
 if (!class_exists('\PHPUnit\Framework\TestCase') and class_exists('\PHPUnit_Framework_TestCase')) {
-	class_alias('\PHPUnit_Framework_TestCase', '\PHPUnit\Framework\TestCase');
+    class_alias('\PHPUnit_Framework_TestCase', '\PHPUnit\Framework\TestCase');
 }
 
 class SetupTest extends \PHPUnit\Framework\TestCase
@@ -52,9 +52,8 @@ class SetupTest extends \PHPUnit\Framework\TestCase
 		try {
 			$this->mail()->send($addAddress, 'Title', 'Body');
 		} catch (\Exception $e) {
-			$this->assertEquals('Mailer Error: Invalid email format.', $e->getMessage())
+			$this->assertEquals('Mailer Error: Invalid email format.', $e->getMessage());
 		}
-
 
 	}
 }
