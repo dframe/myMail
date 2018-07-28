@@ -9,7 +9,6 @@ $bootstrap = new Bootstrap();
 
 class CronSmall extends \Dframe\Controller
 {
-
     public function init()
     {
         $this->dirLog = dirname(__DIR__) . '/../web/cache/logs/cronSmall.txt';
@@ -29,7 +28,6 @@ class CronSmall extends \Dframe\Controller
         $mailModel = $this->loadModel('Mail');
         $mailModel->sendMails();
     }
-
 }
 
 $cron = new CronSmall($bootstrap);

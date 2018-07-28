@@ -1,17 +1,14 @@
 <?php
 namespace Dframe\MyMail;
 
-use PHPMailer\PHPMailer;
 use Dframe\Config;
-
 
 /**
  * Biblioteka obslugi maili dla Dframe
  */
 class MyMail
 {
-
-    public $addAttachment = array();
+    public $addAttachment = [];
     //protected $config;
 
     public function __construct($config = null)
@@ -31,7 +28,6 @@ class MyMail
         $this->mailObject->SMTPSecure = $this->config['SMTPSecure'];
         $this->mailObject->Port = $this->config['Port'];
         return $this->mailObject;
-
     }
 
     public function addAttachment($addAttachment)
@@ -40,9 +36,8 @@ class MyMail
         return $this;
     }
 
-    public function send($Recipient = array(), $Subject, $Body, $Sender = '')
+    public function send($Recipient = [], $Subject, $Body, $Sender = '')
     {
-
         $this->mailObject->ClearAddresses();  // each AddAddress add to list
         $this->mailObject->ClearCCs();
         $this->mailObject->ClearBCCs();
@@ -77,6 +72,4 @@ class MyMail
         $this->addAttachment = null;
         return true;
     }
-
-
 }

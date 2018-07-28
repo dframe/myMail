@@ -1,7 +1,6 @@
 <?php
 namespace Model;
 
-use Dframe\Config;
 use Dframe\MyMail\MyMail;
 
 class MailModel extends \Model\Model
@@ -14,16 +13,15 @@ class MailModel extends \Model\Model
 
     public function init()
     {
-        $this->buffer = array();
+        $this->buffer = [];
     }
 
     /**
      * @param array $whereArray
      *  return int
      */
-    public function mailsCount($whereObject = array())
+    public function mailsCount($whereObject = [])
     {
-
         $query = $this->baseClass->db->prepareQuery('SELECT COUNT(*) AS `count` FROM `mails`');
         $query->prepareWhere($whereObject);
 
@@ -41,7 +39,6 @@ class MailModel extends \Model\Model
      */
     public function mails($start, $limit, $whereObject, $order = 'id', $sort = 'DESC')
     {
-
         $query = $this->baseClass->db->prepareQuery(
             'SELECT mail.*,
                 `users`.`id`
@@ -53,7 +50,7 @@ class MailModel extends \Model\Model
         $query->prepareLimit($limit, $start);
 
         $results = $this->baseClass->db->pdoQuery($query->getQuery(), $query->getParams())->results();
-        return $this->methodResult(true, array('data' => $results));
+        return $this->methodResult(true, ['data' => $results]);
     }
 
     /**
@@ -63,12 +60,11 @@ class MailModel extends \Model\Model
      * @param string $sender
      *  return array
      */
-    public function addToBuffer(array $address, $subject, $body, $sender = '', array $attachmentsIds = array())
+    public function addToBuffer(array $address, $subject, $body, $sender = '', array $attachmentsIds = [])
     {
-
         $dateUTC = new \DateTime("now", new \DateTimeZone("UTC"));
 
-        $mailEntry = array(
+        $mailEntry = [
             'mail_name' => $address['name'],
             'mail_address' => $address['mail'],
             'mail_subject' => $subject,
@@ -77,7 +73,7 @@ class MailModel extends \Model\Model
             'mail_sender' => $sender,
             'mail_status' => 0,
             'mail_buffer_date' => $dateUTC->format('Y-m-d H:i:s')
-        );
+        ];
 
         //if($attachment != false){
         //    $mailEntry['mail_attachments_ids'] = $attachmentsIds;
@@ -95,15 +91,13 @@ class MailModel extends \Model\Model
     {
         //Pusty
         if (count($this->buffer) == 0) {
-            return $this->methodResult(false, array('response' => 'Buffer is empty'));
+            return $this->methodResult(false, ['response' => 'Buffer is empty']);
         }
 
         $i = 0;
         try {
-
             foreach ($this->buffer as $key => $value) {
-
-                $buffer = array(
+                $buffer = [
                     'mail_name' => $value['mail_name'],
                     'mail_address' => $value['mail_address'],
                     'mail_subject' => $value['mail_subject'],
@@ -112,7 +106,7 @@ class MailModel extends \Model\Model
                     'mail_sender' => $value['mail_sender'],
                     'mail_status' => $value['mail_status'],
                     'mail_buffer_date' => $value['mail_buffer_date']
-                );
+                ];
 
                 $insertResult = $this->baseClass->db->insert('mails', $buffer, true)->getLastInsertId();
                 if ($insertResult > 0) {
@@ -138,16 +132,15 @@ class MailModel extends \Model\Model
 
                 $i++;
             }
-
         } catch (Exception $e) {
-            return $this->methodResult(false, array('response' => $e->getMessage()));
+            return $this->methodResult(false, ['response' => $e->getMessage()]);
         }
 
         if (!count($i)) {
-            return $this->methodResult(false, array('response' => 'Unable to add mails to spooler'));
+            return $this->methodResult(false, ['response' => 'Unable to add mails to spooler']);
         }
 
-        $this->buffer = array();
+        $this->buffer = [];
         return $this->methodResult(true);
     }
 
@@ -156,72 +149,69 @@ class MailModel extends \Model\Model
      */
     public function sendMails($amount = 20)
     {
-
         $amount = (int)$amount;
-        if ($amount <= 0)
+        if ($amount <= 0) {
             return $this->methodResult(false, 'Incorrect amount');
+        }
 
         $emailsToSend = $this->baseClass->db->pdoQuery('SELECT *
                                                        FROM `mails`
                                                        WHERE `mail_status` = ?
                                                        ORDER BY `mail_enqueued` ASC
-                                                       LIMIT ?', array('0', $amount))->results();
+                                                       LIMIT ?', ['0', $amount])->results();
 
-        $data = array('sent' => 0, 'failed' => 0, 'errors' => array());
+        $data = ['sent' => 0, 'failed' => 0, 'errors' => []];
         $return = true;
 
         $mail = new myMail();
         $mail->mailObject->isSMTP();
-        $mail->mailObject->SMTPOptions = array(
-            'ssl' => array(
+        $mail->mailObject->SMTPOptions = [
+            'ssl' => [
                 'verify_peer' => false,
                 'verify_peer_name' => false,
                 'allow_self_signed' => true
-            )
-        );
-       //$mail->SMTPDebug  = 2; // enables SMTP debug information (for testing)
-                                // 1 = errors and messages
-                                // 2 = messages only
+            ]
+        ];
+        //$mail->SMTPDebug  = 2; // enables SMTP debug information (for testing)
+        // 1 = errors and messages
+        // 2 = messages only
         $mail->mailObject->SMTPSecure = false;
 
         foreach ($emailsToSend as $email) {
-
             $dateUTC = new \DateTime("now", new \DateTimeZone("UTC"));
             try {
 
                 //$mailsAttachments = $this->baseClass->db->pdoQuery('SELECT * FROM `mails_attachments` LEFT JOIN files ON mails_attachments.file_id = files.file_id WHERE mail_id = ?', array($email['mail_id']))->results();
                 //if (count($mailsAttachments) > 0) {
 
-                    //foreach ($mailsAttachments as $key => $attachment) {
-                    //
-                    //    $fileStorage = new \Dframe\FileStorage\Storage($this->loadModel('FileStorage/Drivers/DatabaseDriver'));
-                    //
-                    //    $sourceAdapter = $attachment['file_adapter'].'://'. $attachment['file_path'];
-                    //
-                    //    if ($fileStorage->manager->has($sourceAdapter)) {
-                    //        // Retrieve a read-stream
-                    //        $stream = $fileStorage->manager->readStream($sourceAdapter);
-                    //
-                    //        $contents = stream_get_contents($stream);
-                    //        $mail->mailObject->addStringAttachment($contents, end(explode('/', $attachment['file_path'])));
-                    //        fclose($stream);
-                    //
-                    //    } else {
-                    //        throw new \Exception("Brak załacznika", 1);
-                    //    }
-                    //
-                    //
-                    //}
+                //foreach ($mailsAttachments as $key => $attachment) {
+                //
+                //    $fileStorage = new \Dframe\FileStorage\Storage($this->loadModel('FileStorage/Drivers/DatabaseDriver'));
+                //
+                //    $sourceAdapter = $attachment['file_adapter'].'://'. $attachment['file_path'];
+                //
+                //    if ($fileStorage->manager->has($sourceAdapter)) {
+                //        // Retrieve a read-stream
+                //        $stream = $fileStorage->manager->readStream($sourceAdapter);
+                //
+                //        $contents = stream_get_contents($stream);
+                //        $mail->mailObject->addStringAttachment($contents, end(explode('/', $attachment['file_path'])));
+                //        fclose($stream);
+                //
+                //    } else {
+                //        throw new \Exception("Brak załacznika", 1);
+                //    }
+                //
+                //
+                //}
 
                 //}
 
-                $addAddress = array('mail' => $email['mail_address'], 'name' => $email['mail_name']);
+                $addAddress = ['mail' => $email['mail_address'], 'name' => $email['mail_name']];
                 $sendResult = $mail->send($addAddress, $email['mail_subject'], $email['mail_body']);
 
-                $this->baseClass->db->update('mails', array('mail_sent' => time(), 'mail_status' => '1', 'mail_send_date' => $dateUTC->format('Y-m-d H:i:s')), array('mail_id' => $email['mail_id']));
+                $this->baseClass->db->update('mails', ['mail_sent' => time(), 'mail_status' => '1', 'mail_send_date' => $dateUTC->format('Y-m-d H:i:s')], ['mail_id' => $email['mail_id']]);
                 $data['sent']++;
-
-
             } catch (\Exception $e) {
                 $data['errors'][] = $e->getMessage();
             }
@@ -231,10 +221,9 @@ class MailModel extends \Model\Model
                 $return = false;
                 continue;
             }
-
         }
 
-       //var_dump($data);
+        //var_dump($data);
         return $this->methodResult($return, $data);
     }
 
@@ -246,5 +235,4 @@ class MailModel extends \Model\Model
         $this->baseClass->db->truncate('mails');
         return $this->methodResult(true);
     }
-
 }

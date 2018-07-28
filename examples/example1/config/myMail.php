@@ -1,7 +1,7 @@
 <?php
 
-return array(
-    'Hosts' => array('example@mail'),      // Specify main and backup SMTP servers
+return [
+    'Hosts' => ['example@mail'],      // Specify main and backup SMTP servers
     'SMTPAuth' => true,                    // Enable SMTP authentication
     'Username' => 'Username@mail',         // SMTP username
     'Password' => '',                      // SMTP password
@@ -15,4 +15,4 @@ return array(
 
     'senderName' => PROJECT_NAME,      // Name of default sender
     'senderMail' => 'senderMail@mail'  // Default sender's address
-);
+];
