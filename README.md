@@ -10,7 +10,7 @@ Simple mail wrapper using phpmailer
 ```php
 <?php
 return array(
-    'Hosts' => array('example@mail'),      // Specify main and backup SMTP servers
+    'Hosts' => ['example@mail'],      // Specify main and backup SMTP servers
     'SMTPAuth' => true,                    // Enable SMTP authentication
     'Username' => 'Username@mail',         // SMTP username
     'Password' => '',                      // SMTP password
@@ -38,20 +38,20 @@ $myMail = new MyMail($config = Config::load('myMail')); // Load Configu
 
 /* 
  * If you have problem with ssl in php 5.6 add
- *       $myMail->SMTPOptions = array(
- *           'ssl' => array(
+ *       $myMail->SMTPOptions = [
+ *           'ssl' => [
  *               'verify_peer' => false,
  *               'verify_peer_name' => false,
  *               'allow_self_signed' => true
- *           )
- *       );
+ *           ]
+ *       ];
  */
  
  $myMail->SMTPDebug  = 2; // Enables SMTP debug information (for testing)
                           // 1 = errors and messages
                           // 2 = messages only
 		       
-$addAddress = array('mail' => $_POST['email'], 'name' => $_POST['firstname']);    // Addresses to send
+$addAddress = ['mail' => $_POST['email'], 'name' => $_POST['firstname']];    // Addresses to send
 $view->assign('name', $_POST['firstname']);                                       // Assign template values
 $body = $view->fetch('reset');                                                    // Template mail
 $mail->send($addAddress, 'Test Mail', $body);
@@ -66,7 +66,7 @@ use \Dframe\MyMail\MyMail;
 require_once __DIR__ . '/../vendor/autoload.php';
 $config = require_once 'config/config.php'; 
 $myMail = new MyMail($config);                                       // Load Config
-$addAddress = array('mail' => 'adres@email', 'name' => 'titleFrom'); // Addresses to send
+$addAddress = ['mail' => 'adres@email', 'name' => 'titleFrom']; // Addresses to send
 $mail->send($addAddress, 'Test Mail', $body);
 ````
 
@@ -95,7 +95,7 @@ $mail->mailObject->SMTPOptions = array(
                          // 2 = messages only
 $mail->mailObject->SMTPSecure = false;
 
-$addAddress = array('mail' => 'adres@email', 'name' => 'titleFrom'); // Addresses to send
+$addAddress = ['mail' => 'adres@email', 'name' => 'titleFrom']; // Addresses to send
 
 try {
     $mail->send($addAddress, 'Test Mail', $body);
