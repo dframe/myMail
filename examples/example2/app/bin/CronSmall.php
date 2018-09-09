@@ -10,8 +10,7 @@ require_once __DIR__ . '/../../web/config.php';
 /**
  * Self Aonymous Cron class
  */
-return (new class() extends \Dframe\Cron\Task
-{
+return (new class() extends \Dframe\Cron\Task {
     /**
      * @return Response
      */

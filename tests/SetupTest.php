@@ -5,7 +5,6 @@ namespace Dframe\MyMail\Tests;
 use Dframe\MyMail\MyMail;
 use PHPUnit\Framework\TestCase;
 
-
 class SetupTest extends TestCase
 {
     public function mail()

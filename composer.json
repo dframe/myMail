@@ -36,7 +36,7 @@
     },
     "require-dev": {
         "dframe/dframe": "^3.30",
-        "phpunit/phpunit": "^6.5"
+        "phpunit/phpunit": "^6"
     },
     "scripts": {
         "test": [
