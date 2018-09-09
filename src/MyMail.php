@@ -59,7 +59,7 @@ class MyMail
         $this->mailObject->addAddress($Recipient['mail'], $Recipient['name']);     // Add a recipient
 
         if (!empty($this->addAttachment)) {
-            foreach ($addAttachment as $key => $attachment) {
+            foreach ($this->addAttachment as $key => $attachment) {
                 $this->mailObject->addAttachment = $attachment;
             }
         }
