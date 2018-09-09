@@ -1,7 +1,17 @@
 {
     "name": "dframe/mymail",
     "description": "Modul mailowy do frameworka dframe",
-    "keywords": ["mailings", "mail", "dframe", "email", "newsletter", "notification"],
+    "keywords": [
+        "mailings",
+        "mail",
+        "dframe",
+        "email",
+        "newsletter",
+        "notification",
+        "smtp",
+        "imap",
+        "pop3"
+    ],
     "homepage": "https://dframeframework.com",
     "type": "library",
     "license": "MIT",
@@ -15,10 +25,18 @@
         }
     ],
     "autoload": {
-                "psr-4": { "Dframe\\MyMail\\": "src/" }
+        "psr-4": {
+            "Dframe\\MyMail\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Dframe\\MyMail\\Tests\\": "tests"
+        }
     },
     "require-dev": {
-        "dframe/dframe": "^3.27"
+        "dframe/dframe": "^3.30",
+        "phpunit/phpunit": "^6.5"
     },
     "scripts": {
         "test": [

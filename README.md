@@ -76,7 +76,7 @@ Stalone example#2 php
 ```php
 <?php
 
-use Dframe\MyMail\MyMail
+use Dframe\MyMail\MyMail;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 $config = require_once 'config/config.php'; 

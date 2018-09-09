@@ -1,16 +1,35 @@
 <?php
+
 namespace Dframe\MyMail;
 
 use Dframe\Config;
 
 /**
  * Biblioteka obslugi maili dla Dframe
+ *
  */
 class MyMail
 {
+    /**
+     * @var array
+     */
     public $addAttachment = [];
-    //protected $config;
 
+    /**
+     * @var mixed|null
+     */
+    public $config;
+
+    /**
+     * @var \PHPMailer
+     */
+    public $mailObject;
+
+    /**
+     * MyMail constructor.
+     *
+     * @param array|null $config
+     */
     public function __construct($config = null)
     {
         $this->config = $config;
@@ -30,20 +49,33 @@ class MyMail
         return $this->mailObject;
     }
 
+    /**
+     * @param $addAttachment
+     *
+     * @return $this
+     */
     public function addAttachment($addAttachment)
     {
         $this->addAttachment[] = $addAttachment;
         return $this;
     }
 
-    public function send($Recipient = [], $Subject, $Body, $Sender = '')
+    /**
+     * @param array  $Recipient
+     * @param        $Subject
+     * @param        $Body
+     * @param string $Sender
+     *
+     * @return bool
+     */
+    public function send($Recipient, $Subject, $Body, $Sender = null)
     {
         $this->mailObject->ClearAddresses();  // each AddAddress add to list
         $this->mailObject->ClearCCs();
         $this->mailObject->ClearBCCs();
 
 
-        if ($Sender != '') {
+        if (is_null($Sender)) {
             $this->mailObject->setFrom($Sender['address'], $Sender['name']);
         } else {
             $this->mailObject->setFrom($this->config['senderMail'], $this->config['senderName']);
@@ -60,7 +92,7 @@ class MyMail
 
         if (!empty($this->addAttachment)) {
             foreach ($this->addAttachment as $key => $attachment) {
-                $this->mailObject->addAttachment = $attachment;
+                $this->mailObject->addAttachment($attachment);
             }
         }
         $this->mailObject->msgHTML($Body);

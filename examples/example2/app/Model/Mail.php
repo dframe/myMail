@@ -1,4 +1,5 @@
 <?php
+
 namespace Model;
 
 use Dframe\MyMail\MyMail;
@@ -11,14 +12,19 @@ class MailModel extends \Model\Model
      */
     protected $buffer;
 
+    /**
+     *
+     */
     public function init()
     {
         $this->buffer = [];
     }
 
+
     /**
-     * @param array $whereArray
-     *  return int
+     * @param array $whereObject
+     *
+     * @return mixed
      */
     public function mailsCount($whereObject = [])
     {
@@ -34,8 +40,9 @@ class MailModel extends \Model\Model
      * @param int    $limit
      * @param array  $whereObject
      * @param string $order
-     * @param sting  $sort
-     *  return array
+     * @param string $sort
+     *
+     * @return array
      */
     public function mails($start, $limit, $whereObject, $order = 'id', $sort = 'DESC')
     {
@@ -58,7 +65,8 @@ class MailModel extends \Model\Model
      * @param string $subject
      * @param string $body
      * @param string $sender
-     *  return array
+     *
+     * @return array
      */
     public function addToBuffer(array $address, $subject, $body, $sender = '', array $attachmentsIds = [])
     {
@@ -85,7 +93,7 @@ class MailModel extends \Model\Model
     }
 
     /**
-     * return array
+     * @return array
      */
     public function execute()
     {
@@ -136,7 +144,7 @@ class MailModel extends \Model\Model
             return $this->methodResult(false, ['response' => $e->getMessage()]);
         }
 
-        if (!count($i)) {
+        if ($i == 0) {
             return $this->methodResult(false, ['response' => 'Unable to add mails to spooler']);
         }
 
@@ -144,8 +152,11 @@ class MailModel extends \Model\Model
         return $this->methodResult(true);
     }
 
+
     /**
      * @param int $amount
+     *
+     * @return mixed
      */
     public function sendMails($amount = 20)
     {

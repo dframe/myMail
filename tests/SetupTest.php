@@ -1,14 +1,12 @@
 <?php
-namespace Dframe\MyMail\tests;
+
+namespace Dframe\MyMail\Tests;
 
 use Dframe\MyMail\MyMail;
+use PHPUnit\Framework\TestCase;
 
-// backward compatibility
-if (!class_exists('\PHPUnit\Framework\TestCase') and class_exists('\PHPUnit_Framework_TestCase')) {
-    class_alias('\PHPUnit_Framework_TestCase', '\PHPUnit\Framework\TestCase');
-}
 
-class SetupTest extends \PHPUnit\Framework\TestCase
+class SetupTest extends TestCase
 {
     public function mail()
     {

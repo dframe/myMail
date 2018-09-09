@@ -1,4 +1,5 @@
 <?php
+
 namespace Controller;
 
 /**
@@ -14,7 +15,6 @@ namespace Controller;
  *
  * @author First Name <adres@email>
  */
-
 class MailController extends \Controller\Controller
 {
     /**
