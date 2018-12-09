@@ -71,7 +71,7 @@ $mail->send($addAddress, 'Test Mail', $body);
 ````
 
 
-Stalone example#2 php
+Standalone example#2 php
 
 ```php
 <?php
