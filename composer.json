@@ -12,11 +12,12 @@
         "imap",
         "pop3"
     ],
-    "homepage": "https://dframeframework.com",
+    "homepage": "https://dframeframework.com/en/docs/myMail/master/configuration",
     "type": "library",
     "license": "MIT",
     "require": {
-        "phpmailer/phpmailer": "^5.2"
+        "php": ">=7.1",
+        "phpmailer/phpmailer": "^6.0"
     },
     "authors": [
         {
@@ -35,7 +36,8 @@
         }
     },
     "require-dev": {
-        "dframe/dframe": "^3.30",
+        "dframe/dframe": "dev-master",
+        "dframe/database": "dev-master",
         "phpunit/phpunit": "^6"
     },
     "scripts": {

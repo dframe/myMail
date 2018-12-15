@@ -15,15 +15,17 @@ namespace Controller;
  *
  * @author First Name <adres@email>
  */
-class MailController extends \Controller\Controller
+class MailController extends \Dframe\Controller
 {
     /**
      * initial function call working like __construct
      */
     public function init()
     {
-        $mailModel = $this->loadModel('Mail');
-        $mailModel->addToBuffer(['name' => 'FirstName', 'mail' => 'example@youremail.com'], 'Title', 'Body');
-        $execute = $mailModel->execute();
+        /** @var \Model\MailModel $MailModel */
+        $MailModel = $this->loadModel('Mail');
+
+        $MailModel->addToBuffer(['name' => 'FirstName', 'mail' => 'example@youremail.com'], 'Title', 'Body');
+        $execute = $MailModel->execute();
     }
 }

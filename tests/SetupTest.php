@@ -7,9 +7,14 @@ use PHPUnit\Framework\TestCase;
 
 class SetupTest extends TestCase
 {
+    public function testSetUp()
+    {
+        $this->assertInstanceOf(\Dframe\MyMail\MyMail::class, $this->mail());
+    }
+
     public function mail()
     {
-        $myMail = new MyMail([
+        $MyMail = new MyMail([
             'Hosts' => ['localhost.localdomain'],      // Specify main and backup SMTP servers
             'SMTPAuth' => true,                    // Enable SMTP authentication
             'Username' => 'Username@mail',         // SMTP username
@@ -17,21 +22,11 @@ class SetupTest extends TestCase
             'SMTPSecure' => 'tls',                 // Enable TLS encryption, `ssl` also accepted
             'Port' => 587,                         // Port
 
-            'setMailTemplateDir' => dirname(__DIR__) . '/tests/templates/',
-            'smartyHtmlExtension' => '.html.php',              // Default '.html.php'
-            'smartyTxtExtension' => '.txt.php',                // Default '.txt.php'
-            'fileExtension' => '.html.php',
+            'SenderName' => 'example',      // Name of default sender
+            'SenderEmail' => 'root@localhost.localdomain'  // Default sender's address
+        ]); // Load Config
 
-            'senderName' => 'example',      // Name of default sender
-            'senderMail' => 'senderMail@mail'  // Default sender's address
-        ]); // Load Configu
-
-        return $myMail;
-    }
-
-    public function testSetUp()
-    {
-        $this->assertInstanceOf(\Dframe\MyMail\MyMail::class, $this->mail());
+        return $MyMail;
     }
 
     public function testSend()

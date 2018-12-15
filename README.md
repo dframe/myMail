@@ -17,13 +17,8 @@ return array(
     'SMTPSecure' => 'tls',                 // Enable TLS encryption, `ssl` also accepted
     'Port' => 587,                         // Port
 
-    'setMailTemplateDir' => APP_DIR . 'View/templates/mail',
-    'smartyHtmlExtension' => '.html.php',              // Default '.html.php'
-    'smartyTxtExtension' => '.txt.php',                // Default '.txt.php'
-    'fileExtension' => '.html.php',
-
-    'senderName' => APP_NAME,      // Name of default sender
-    'senderMail' => 'senderMail@mail'  // Default sender's address
+    'SenderName' => APP_NAME,      // Name of default sender
+    'SenderEmail' => 'senderMail@mail'  // Default sender's address
 );
 
 ```
@@ -34,11 +29,11 @@ return array(
 use Dframe\MyMail\MyMail;
 use Dframe\Config;
 $view = $this->loadView('index');
-$myMail = new MyMail($config = Config::load('myMail')); // Load Configu
+$MyMail = new MyMail($config = Config::load('myMail')->get()); // Load Configu
 
 /* 
  * If you have problem with ssl in php 5.6 add
- *       $myMail->SMTPOptions = [
+ *       $MyMail->SMTPOptions = [
  *           'ssl' => [
  *               'verify_peer' => false,
  *               'verify_peer_name' => false,
@@ -47,14 +42,14 @@ $myMail = new MyMail($config = Config::load('myMail')); // Load Configu
  *       ];
  */
  
- $myMail->SMTPDebug  = 2; // Enables SMTP debug information (for testing)
+ $MyMail->SMTPDebug  = 2; // Enables SMTP debug information (for testing)
                           // 1 = errors and messages
                           // 2 = messages only
 		       
 $addAddress = ['mail' => $_POST['email'], 'name' => $_POST['firstname']];    // Addresses to send
 $view->assign('name', $_POST['firstname']);                                       // Assign template values
 $body = $view->fetch('reset');                                                    // Template mail
-$mail->send($addAddress, 'Test Mail', $body);
+$MyMail->send($addAddress, 'Test Mail', $body);
 ````
 
 
@@ -65,9 +60,9 @@ use \Dframe\MyMail\MyMail;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 $config = require_once 'config/config.php'; 
-$myMail = new MyMail($config);                                       // Load Config
-$addAddress = ['mail' => 'adres@email', 'name' => 'titleFrom']; // Addresses to send
-$mail->send($addAddress, 'Test Mail', $body);
+$MyMail = new MyMail($config);                                       // Load Config
+$addAddress = ['mail' => 'adres@email', 'name' => 'Title From']; // Addresses to send
+$MyMail->send($addAddress, 'Test Mail', $body);
 ````
 
 
@@ -81,24 +76,24 @@ use Dframe\MyMail\MyMail;
 require_once __DIR__ . '/../vendor/autoload.php';
 $config = require_once 'config/config.php'; 
 
-$mail = new MyMail(); // Załadowanie Configu
-$mail->mailObject->isSMTP();
-$mail->mailObject->SMTPOptions = array(
+$MyMail = new MyMail($config); // Załadowanie Configu
+$MyMail->mail->isSMTP();
+$MyMail->mail->SMTPOptions = array(
     'ssl' => array(
         'verify_peer' => false,
         'verify_peer_name' => false,
         'allow_self_signed' => true
     )
 );
-//$mail->SMTPDebug  = 2; // Enables SMTP debug information (for testing)
+//$MyMail->SMTPDebug  = 2; // Enables SMTP debug information (for testing)
                          // 1 = errors and messages
                          // 2 = messages only
-$mail->mailObject->SMTPSecure = false;
+$MyMail->mail->SMTPSecure = false;
 
 $addAddress = ['mail' => 'adres@email', 'name' => 'titleFrom']; // Addresses to send
 
 try {
-    $mail->send($addAddress, 'Test Mail', $body);
+    $MyMail->send($addAddress, 'Test Mail', 'Hello Word!');
 
 } catch (Exception $e) {
     echo $e->getMessage();

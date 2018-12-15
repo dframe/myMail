@@ -13,6 +13,6 @@ return [
     'smartyTxtExtension' => '.txt.php',                // Default '.txt.php'
     'fileExtension' => '.html.php',
 
-    'senderName' => PROJECT_NAME,      // Name of default sender
-    'senderMail' => 'senderMail@mail'  // Default sender's address
+    'SenderName' => PROJECT_NAME,      // Name of default sender
+    'senderEmail' => 'senderMail@mail'  // Default sender's address
 ];

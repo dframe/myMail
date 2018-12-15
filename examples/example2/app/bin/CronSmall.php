@@ -21,8 +21,8 @@ return (new class() extends \Dframe\Cron\Task {
             /**
              * Your Code
              */
-            $mailModel = $this->loadModel('Mail');
-            $mailModel->sendMails();
+            $MailModel = $this->loadModel('Mail');
+            $MailModel->sendMails();
 
             return Response::renderJSON(['code' => 200, 'message' => 'Cron Complete']);
         }
