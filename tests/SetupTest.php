@@ -15,15 +15,45 @@ class SetupTest extends TestCase
     public function mail()
     {
         $MyMail = new MyMail([
-            'Hosts' => ['localhost.localdomain'],      // Specify main and backup SMTP servers
-            'SMTPAuth' => true,                    // Enable SMTP authentication
-            'Username' => 'Username@mail',         // SMTP username
-            'Password' => '',                      // SMTP password
-            'SMTPSecure' => 'tls',                 // Enable TLS encryption, `ssl` also accepted
-            'Port' => 587,                         // Port
+            /**
+             * Specify main and backup SMTP servers
+             */
+            'hosts' => ['primaryHostName.tld', 'backupHostName.tld'],
 
-            'SenderName' => 'example',      // Name of default sender
-            'SenderEmail' => 'root@localhost.localdomain'  // Default sender's address
+            /**
+             * Enable SMTP authentication
+             */
+            'smtpAuth' => true,
+
+            /**
+             * SMTP username
+             */
+            'username' => 'Username@mail',
+
+            /**
+             * SMTP password
+             */
+            'password' => '',
+
+            /**
+             * Enable TLS encryption, `ssl` also accepted
+             */
+            'smtpSecure' => 'tls',
+
+            /**
+             * Port
+             */
+            'port' => 587,
+
+            /**
+             * Name of default sender
+             */
+            'senderName' => 'example',
+
+            /**
+             * Default sender's address
+             */
+            'senderEmail' => 'root@localhost.localdomain'
         ]); // Load Config
 
         return $MyMail;

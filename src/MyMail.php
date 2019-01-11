@@ -47,33 +47,33 @@ class MyMail
      */
     public function __construct(array $config)
     {
-        if ((!isset($config['Hosts']) or empty($config['Hosts'])) or
-            (!isset($config['SMTPAuth']) or empty($config['SMTPAuth'])) or
-            (!isset($config['Username']) or empty($config['Username'])) or
-            !isset($config['Password']) or
-            (!isset($config['SMTPSecure']) or empty($config['SMTPSecure'])) or
-            (!isset($config['Port']) or empty($config['Port'])) or
-            (!isset($config['SenderEmail']) or empty($config['SenderEmail'])) or
-            (!isset($config['SenderName']) or empty($config['SenderName']))
+        if ((!isset($config['hosts']) or empty($config['hosts'])) or
+            (!isset($config['smtpAuth']) or empty($config['smtpAuth'])) or
+            (!isset($config['username']) or empty($config['username'])) or
+            !isset($config['password']) or
+            (!isset($config['smtpSecure']) or empty($config['smtpSecure'])) or
+            (!isset($config['port']) or empty($config['port'])) or
+            (!isset($config['senderEmail']) or empty($config['senderEmail'])) or
+            (!isset($config['senderName']) or empty($config['senderName']))
 
         ) {
-            throw new InvalidArgumentException('Required params (Hosts, SMTPAuth, Username, Password, SMTPSecure, Port, SenderMail, SenderName)');
+            throw new InvalidArgumentException('Required params (hosts, smtpAuth, username, password, smtpSecure, port, senderMail, senderName)');
         }
 
-        if (!is_bool($config['SMTPAuth'])) {
+        if (!is_bool($config['smtpAuth'])) {
             throw new InvalidArgumentException('SMTPAuth must be type Boolean (true/false)');
         }
 
         $this->config = $config;
         $this->mail = new PHPMailer;
         $this->mail->CharSet = $config['CharSet'] ?? 'UTF-8';
-        $this->mail->Host = is_array($this->config['Hosts']) ? implode(';',
-            $this->config['Hosts']) : $this->config['Hosts'];
-        $this->mail->SMTPAuth = $this->config['SMTPAuth'];
-        $this->mail->Username = $this->config['Username'];
-        $this->mail->Password = $this->config['Password'];
-        $this->mail->SMTPSecure = $this->config['SMTPSecure'];
-        $this->mail->Port = $this->config['Port'];
+        $this->mail->Host = is_array($this->config['hosts']) ? implode(';',
+            $this->config['hosts']) : $this->config['hosts'];
+        $this->mail->SMTPAuth = $this->config['smtpAuth'];
+        $this->mail->Username = $this->config['username'];
+        $this->mail->Password = $this->config['password'];
+        $this->mail->SMTPSecure = $this->config['smtpSecure'];
+        $this->mail->Port = $this->config['port'];
 
         /**
          * Backward compatibility
@@ -112,8 +112,8 @@ class MyMail
         $this->mail->ClearBCCs();
 
         $this->mail->setFrom(
-            $sender['mail'] ?? $this->config['SenderEmail'],
-            $sender['name'] ?? $this->config['SenderName']);
+            $sender['mail'] ?? $this->config['senderEmail'],
+            $sender['name'] ?? $this->config['senderName']);
 
         $this->mail->Subject = $subject;
 
