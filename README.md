@@ -4,87 +4,10 @@
 
 Simple mail wrapper using phpmailer 
 
-### Użycie
-#### config/myMail.php
-
-```php
-<?php
-
-return [
-    /**
-     * Specify main and backup SMTP servers
-     */
-    'hosts' => ['primaryHostName.tld', 'backupHostName.tld'],
-
-    /**
-     * Enable SMTP authentication
-     */
-    'smtpAuth' => true,
-
-    /**
-     * SMTP username
-     */
-    'username' => 'Username@mail',
-
-    /**
-     * SMTP password
-     */
-    'password' => '',
-
-    /**
-     * Enable TLS encryption, `ssl` also accepted
-     */
-    'smtpSecure' => 'tls',
-
-    /**
-     * Port
-     */
-    'port' => 587,
-
-    /**
-     * Name of default sender
-     */
-    'senderName' => PROJECT_NAME,
-
-    /**
-     * Default sender's address
-     */
-    'senderEmail' => 'senderMail@mail'
-];
-
-```
-
-```php
-<?php
-
-use Dframe\MyMail\MyMail;
-use Dframe\Config;
-$view = $this->loadView('index');
-$MyMail = new MyMail($config = Config::load('myMail')->get()); // Load Configu
-
-/* 
- * If you have problem with ssl in php 5.6 add
- *       $MyMail->SMTPOptions = [
- *           'ssl' => [
- *               'verify_peer' => false,
- *               'verify_peer_name' => false,
- *               'allow_self_signed' => true
- *           ]
- *       ];
- */
- 
- $MyMail->SMTPDebug  = 2; // Enables SMTP debug information (for testing)
-                          // 1 = errors and messages
-                          // 2 = messages only
-		       
-$addAddress = ['mail' => $_POST['email'], 'name' => $_POST['firstname']];    // Addresses to send
-$view->assign('name', $_POST['firstname']);                                       // Assign template values
-$body = $view->fetch('reset');                                                    // Template mail
-$MyMail->send($addAddress, 'Test Mail', $body);
-````
+## Usage
 
 
-Stalone example#1 php
+#### Standalone example#1 php
 
 ```php
 use \Dframe\MyMail\MyMail;
@@ -97,7 +20,7 @@ $MyMail->send($addAddress, 'Test Mail', $body);
 ````
 
 
-Standalone example#2 php
+##### Standalone example#2 php
 
 ```php
 <?php
@@ -131,3 +54,37 @@ try {
 	
 }
 ```
+
+## Example #1 with Dframe Framework 
+
+#### config/myMail.php - [here](https://github.com/dframe/myMail/blob/master/examples/example2/app/Config/myMail.php)
+
+```php
+<?php
+
+use Dframe\MyMail\MyMail;
+use Dframe\Config;
+$view = $this->loadView('index');
+$MyMail = new MyMail(Config::load('myMail')->get()); // Load Configu
+
+/* 
+ * If you have problem with ssl in php 5.6 add
+ *       $MyMail->SMTPOptions = [
+ *           'ssl' => [
+ *               'verify_peer' => false,
+ *               'verify_peer_name' => false,
+ *               'allow_self_signed' => true
+ *           ]
+ *       ];
+ */
+ 
+ $MyMail->SMTPDebug  = 2; // Enables SMTP debug information (for testing)
+                          // 1 = errors and messages
+                          // 2 = messages only
+		       
+$addAddress = ['mail' => $_POST['email'], 'name' => $_POST['firstname']];    // Addresses to send
+$view->assign('name', $_POST['firstname']);                                       // Assign template values
+$body = $view->fetch('reset');                                                    // Template mail
+$MyMail->send($addAddress, 'Test Mail', $body);
+````
+
