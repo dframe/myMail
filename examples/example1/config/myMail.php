@@ -34,7 +34,7 @@ return [
     /**
      * Name of default sender
      */
-    'senderName' => PROJECT_NAME,
+    'senderName' => 'Sender Name',
 
     /**
      * Default sender's address
