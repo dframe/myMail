@@ -4,6 +4,12 @@
 
 Simple mail wrapper using phpmailer 
 
+### Composer
+
+```sh
+$ composer require dframe/mymail
+```
+
 ## Usage
 
 
