@@ -2,6 +2,8 @@
 
 namespace Controller;
 
+use Dframe\Controller;
+
 /**
  * Project Name
  * Copyright (c) Firstname Lastname
@@ -15,7 +17,7 @@ namespace Controller;
  *
  * @author First Name <adres@email>
  */
-class MailController extends \Dframe\Controller
+class MailController extends Controller
 {
     /**
      * initial function call working like __construct

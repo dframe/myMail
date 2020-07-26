@@ -3,11 +3,12 @@
 namespace Model;
 
 use DateTime;
+use DateTimeZone;
 use Dframe\Config;
 use Dframe\MyMail\MyMail;
 use Exception;
 
-class MailModel extends \Model\Model
+class MailModel extends Model
 {
 
     /**
@@ -64,7 +65,7 @@ class MailModel extends \Model\Model
      */
     public function addToBuffer(array $address, $subject, $body, $sender = '', array $attachmentsIds = [])
     {
-        $dateUTC = new DateTime("now", new \DateTimeZone("UTC"));
+        $dateUTC = new DateTime("now", new DateTimeZone("UTC"));
 
         $mailEntry = [
             'mail_name' => $address['name'],
@@ -186,7 +187,7 @@ class MailModel extends \Model\Model
         $MyMail->mail->SMTPSecure = false;
 
         foreach ($emailsToSend as $email) {
-            $dateUTC = new DateTime("now", new \DateTimeZone("UTC"));
+            $dateUTC = new DateTime("now", new DateTimeZone("UTC"));
             try {
 
                 //$mailsAttachments = $this->db->pdoQuery('SELECT * FROM `mails_attachments` LEFT JOIN files ON mails_attachments.file_id = files.file_id WHERE mail_id = ?', array($email['mail_id']))->results();
@@ -223,7 +224,7 @@ class MailModel extends \Model\Model
                     ['mail_id' => $email['mail_id']]);
 
                 $data['sent']++;
-            } catch (\Exception $e) {
+            } catch (Exception $e) {
                 $data['errors'][] = $e->getMessage();
             }
 

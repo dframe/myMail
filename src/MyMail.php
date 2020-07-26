@@ -65,7 +65,7 @@ class MyMail
         }
 
         $this->config = $config;
-        $this->mail = new PHPMailer;
+        $this->mail = new PHPMailer();
         $this->mail->CharSet = $config['CharSet'] ?? 'UTF-8';
         $this->mail->Host = is_array($this->config['hosts']) ? implode(';',
             $this->config['hosts']) : $this->config['hosts'];

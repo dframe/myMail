@@ -3,13 +3,14 @@
 namespace Dframe\MyMail\Tests;
 
 use Dframe\MyMail\MyMail;
+use Exception;
 use PHPUnit\Framework\TestCase;
 
 class SetupTest extends TestCase
 {
     public function testSetUp()
     {
-        $this->assertInstanceOf(\Dframe\MyMail\MyMail::class, $this->mail());
+        $this->assertInstanceOf(MyMail::class, $this->mail());
     }
 
     public function mail()
@@ -71,7 +72,7 @@ class SetupTest extends TestCase
 
         try {
             $this->mail()->send($addAddress, 'Title', 'Body');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->assertEquals('Mailer Error: Invalid email format.', $e->getMessage());
         }
     }
