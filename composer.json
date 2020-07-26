@@ -17,7 +17,7 @@
     "license": "MIT",
     "require": {
         "php": ">=7.1",
-        "phpmailer/phpmailer": "^6.0"
+        "phpmailer/phpmailer": "^6.1"
     },
     "authors": [
         {
@@ -36,9 +36,9 @@
         }
     },
     "require-dev": {
-        "dframe/dframe": "dev-master",
-        "dframe/database": "dev-master",
-        "phpunit/phpunit": "^6"
+        "dframe/dframe": "^v4.0",
+        "dframe/database": "^2.0",
+        "phpunit/phpunit": "^6.1"
     },
     "scripts": {
         "test": [
