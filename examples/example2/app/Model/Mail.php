@@ -224,7 +224,7 @@ class MailModel extends Model
                     'mail_status' => '1',
                     'mail_send_date' => $dateUTC->format('Y-m-d H:i:s')
                 ];
-                $arrayWhere = ['mail_id' => $email['mail_id'];
+                $arrayWhere = ['mail_id' => $email['mail_id']];
 
                 $this->db->update('mails',   $data, $arrayWhere);
 
