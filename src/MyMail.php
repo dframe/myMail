@@ -57,7 +57,9 @@ class MyMail
             (!isset($config['senderName']) or empty($config['senderName']))
 
         ) {
-            throw new InvalidArgumentException('Required params (hosts, smtpAuth, username, password, smtpSecure, port, senderMail, senderName)');
+            throw new InvalidArgumentException(
+                'Required params (hosts, smtpAuth, username, password, smtpSecure, port, senderMail, senderName)'
+            );
         }
 
         if (!is_bool($config['smtpAuth'])) {
@@ -67,8 +69,9 @@ class MyMail
         $this->config = $config;
         $this->mail = new PHPMailer();
         $this->mail->CharSet = $config['CharSet'] ?? 'UTF-8';
-        $this->mail->Host = is_array($this->config['hosts']) ? implode(';',
-            $this->config['hosts']) : $this->config['hosts'];
+        $this->mail->Host = is_array(
+            $this->config['hosts']
+        ) ? implode(';', $this->config['hosts']) : $this->config['hosts'];
         $this->mail->SMTPAuth = $this->config['smtpAuth'];
         $this->mail->Username = $this->config['username'];
         $this->mail->Password = $this->config['password'];
@@ -97,10 +100,10 @@ class MyMail
     }
 
     /**
-     * @param array  $recipient
+     * @param array $recipient
      * @param string $subject
      * @param string $body
-     * @param array  $sender
+     * @param array $sender
      *
      * @return bool
      * @throws Exception
@@ -113,7 +116,8 @@ class MyMail
 
         $this->mail->setFrom(
             $sender['mail'] ?? $this->config['senderEmail'],
-            $sender['name'] ?? $this->config['senderName']);
+            $sender['name'] ?? $this->config['senderName']
+        );
 
         $this->mail->Subject = $subject;
 
@@ -129,10 +133,12 @@ class MyMail
         if (!empty($this->addAttachment)) {
             foreach ($this->addAttachment as $key => $attachment) {
                 $this->mail->addAttachment(
-                    $attachment['path'], $attachment['name'] ?? '',
+                    $attachment['path'],
+                    $attachment['name'] ?? '',
                     $attachment['encoding'] ?? $this->mail::ENCODING_BASE64,
                     $attachment['type'] ?? '',
-                    $attachment['disposition'] ?? 'attachment');
+                    $attachment['disposition'] ?? 'attachment'
+                );
             }
         }
 

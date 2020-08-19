@@ -10,7 +10,6 @@ use Exception;
 
 class MailModel extends Model
 {
-
     /**
      * @var array
      */
@@ -166,7 +165,9 @@ class MailModel extends Model
                 FROM `mails`
                 WHERE `mail_status` = ?
                 ORDER BY `mail_enqueued` ASC
-                LIMIT ?', ['0', $amount])->results();
+                LIMIT ?',
+            ['0', $amount]
+        )->results();
 
         $data = ['sent' => 0, 'failed' => 0, 'errors' => []];
         $return = true;
@@ -218,10 +219,14 @@ class MailModel extends Model
 
                 $addAddress = ['mail' => $email['mail_address'], 'name' => $email['mail_name']];
                 $sendResult = $MyMail->send($addAddress, $email['mail_subject'], $email['mail_body']);
+                $data = [
+                    'mail_sent' => time(),
+                    'mail_status' => '1',
+                    'mail_send_date' => $dateUTC->format('Y-m-d H:i:s')
+                ];
+                $arrayWhere = ['mail_id' => $email['mail_id'];
 
-                $this->db->update('mails',
-                    ['mail_sent' => time(), 'mail_status' => '1', 'mail_send_date' => $dateUTC->format('Y-m-d H:i:s')],
-                    ['mail_id' => $email['mail_id']]);
+                $this->db->update('mails',   $data, $arrayWhere);
 
                 $data['sent']++;
             } catch (Exception $e) {
