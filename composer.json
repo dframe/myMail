@@ -1,6 +1,6 @@
 {
     "name": "dframe/mymail",
-    "description": "Modul mailowy do frameworka dframe",
+    "description": "Mail component for Dframe framework",
     "keywords": [
         "mailings",
         "mail",
