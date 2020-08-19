@@ -4,7 +4,7 @@ namespace Model;
 
 use DateTime;
 use DateTimeZone;
-use Dframe\Config;
+use Dframe\Component\Config\Config;
 use Dframe\MyMail\MyMail;
 use Exception;
 

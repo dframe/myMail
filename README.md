@@ -69,7 +69,7 @@ try {
 <?php
 
 use Dframe\MyMail\MyMail;
-use Dframe\Config;
+use Dframe\Component\Config\Config;
 $view = $this->loadView('index');
 $MyMail = new MyMail(Config::load('myMail')->get()); // Load Configu
 
