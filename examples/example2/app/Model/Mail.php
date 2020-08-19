@@ -190,7 +190,6 @@ class MailModel extends Model
         foreach ($emailsToSend as $email) {
             $dateUTC = new DateTime("now", new DateTimeZone("UTC"));
             try {
-
                 //$mailsAttachments = $this->db->pdoQuery('SELECT * FROM `mails_attachments` LEFT JOIN files ON mails_attachments.file_id = files.file_id WHERE mail_id = ?', array($email['mail_id']))->results();
                 //if (count($mailsAttachments) > 0) {
 
@@ -226,7 +225,7 @@ class MailModel extends Model
                 ];
                 $arrayWhere = ['mail_id' => $email['mail_id']];
 
-                $this->db->update('mails',   $data, $arrayWhere);
+                $this->db->update('mails', $data, $arrayWhere);
 
                 $data['sent']++;
             } catch (Exception $e) {
